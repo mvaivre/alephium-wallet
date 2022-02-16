@@ -25,9 +25,10 @@ interface AmountProps {
   value: bigint | undefined
   className?: string
   fadeDecimals?: boolean
+  fullPrecision?: boolean
 }
 
-const Amount = ({ value, className, fadeDecimals }: AmountProps) => {
+const Amount = ({ value, className, fadeDecimals, fullPrecision = false }: AmountProps) => {
   const {
     settings: {
       general: { discreetMode }
@@ -37,7 +38,7 @@ const Amount = ({ value, className, fadeDecimals }: AmountProps) => {
   let fractionalPart = ''
 
   if (!discreetMode && value !== undefined) {
-    const abbreviatedAmountParts = abbreviateAmount(value).split('.')
+    const abbreviatedAmountParts = abbreviateAmount(value, fullPrecision).split('.')
     integralPart = abbreviatedAmountParts[0]
     fractionalPart = abbreviatedAmountParts[1]
   }
