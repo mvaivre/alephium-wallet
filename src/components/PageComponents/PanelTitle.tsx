@@ -19,7 +19,7 @@ along with the library. If not, see <http://www.gnu.org/licenses/>.
 import { motion, useTransform, useViewportScroll } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
 import { FC } from 'react'
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 
 interface PanelTitleProps {
   color?: string
@@ -38,15 +38,11 @@ const PanelTitle: FC<PanelTitleProps> = ({
   useLayoutId = true
 }) => {
   const { scrollY } = useViewportScroll()
-  const theme = useTheme()
 
   const titleScale = useTransform(scrollY, [0, 50], [1, 0.6])
 
   return (
-    <TitleContainer
-      style={{ backgroundColor: backgroundColor || theme.bg.primary }}
-      layoutId={useLayoutId ? 'sectionTitle' : ''}
-    >
+    <TitleContainer layoutId={useLayoutId ? 'sectionTitle' : ''}>
       {onBackButtonClick && <BackArrow onClick={onBackButtonClick} strokeWidth={3} />}
       <H1 color={color} smaller={smaller} style={{ scale: titleScale, originX: 0 }}>
         {children}
